@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123b35">
+<meta name="description" content="HisabSaathi — personal kharch aur shop ka daily hisaab.">
+<link rel="manifest" href="./manifest.json">
+<title>HisabSaathi — Daily Hisab</title>
+<style>
+:root{--green:#123b35;--green2:#1d6254;--bg:#f4f7f6;--card:#fff;--ink:#172522;--muted:#667773;--line:#e1e9e6;--red:#b42318;--blue:#245bc5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.top{background:var(--green);color:white;padding:22px 16px 18px}.wrap{max-width:980px;margin:auto}.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:13px;background:#d7f4e8;color:var(--green);display:grid;place-items:center;font-size:23px;font-weight:900}.brand h1{font-size:22px;margin:0}.brand p{margin:2px 0 0;color:#d0e4dc;font-size:13px}.mode-row{display:flex;gap:8px;margin-top:18px}.mode{border:1px solid #6b9388;background:transparent;color:white;padding:9px 13px;border-radius:999px}.mode.active{background:white;color:var(--green);border-color:white;font-weight:700}.main{padding:16px;max-width:980px;margin:auto}.monthrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.monthrow label{font-size:13px;color:var(--muted)}input,select{width:100%;border:1px solid var(--line);background:white;border-radius:10px;padding:11px;color:var(--ink);min-width:0}.monthrow input{width:auto}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:14px;min-width:0}.stat .label{font-size:12px;color:var(--muted);margin-bottom:8px}.stat .value{font-size:clamp(17px,3.2vw,24px);font-weight:800;overflow-wrap:anywhere}.stat small{font-size:11px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,0.95fr) minmax(0,1.3fr);gap:14px;margin-top:14px}.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0}.panel h2{font-size:17px;margin:0 0 14px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:var(--muted)}.full{grid-column:1/-1}.kindrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.kind{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px}.kind.active{border-color:var(--green2);background:#eaf5f1;color:var(--green);font-weight:700}.primary{background:var(--green);border:0;color:white;border-radius:11px;padding:12px 14px;font-weight:750;width:100%}.secondary{background:white;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:9px 11px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.toolbar input{flex:1;min-width:120px}.toolbar select{width:auto;max-width:150px}.tx{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.tx:last-child{border-bottom:0}.txicon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#edf4f1;font-size:19px;flex-shrink:0}.txbody{flex:1;min-width:0}.txname{font-weight:700;overflow-wrap:anywhere}.txmeta{font-size:12px;color:var(--muted);margin-top:3px}.amount{font-weight:800;white-space:nowrap}.amount.out{color:var(--red)}.amount.in{color:var(--green2)}.del{border:0;background:transparent;color:#9b4b45;padding:5px;font-size:18px}.empty{text-align:center;color:var(--muted);padding:28px 8px;font-size:14px}.note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:12px}.flash{padding:10px 12px;border-radius:10px;background:#eaf5f1;color:var(--green);margin-bottom:12px;font-size:13px;display:none}.foot{text-align:center;color:var(--muted);font-size:12px;padding:18px}.hidden{display:none!important}
+@media(max-width:700px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:1/-1}.main{padding:12px}.top{padding:18px 12px}.panel{padding:14px}.monthrow{align-items:flex-start;flex-direction:column}.monthrow input{width:100%}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand"><div class="logo">₹</div><div><h1>HisabSaathi</h1><p>Roz ka hisaab, bina tension</p></div></div>
+  <div class="mode-row" role="group" aria-label="Hisab mode">
+    <button class="mode active" data-mode="personal">👤 Personal</button>
+    <button class="mode" data-mode="shop">🏪 Shopkeeper</button>
+  </div>
+</div></header>
+<main class="main">
+  <div id="flash" class="flash" role="status"></div>
+  <div class="monthrow"><div><strong id="overviewTitle">Monthly Overview</strong><div><label>Jis mahine ka hisaab dekhna hai</label></div></div><input id="monthPicker" type="month" aria-label="Choose month"></div>
+  <section class="stats">
+    <div class="stat"><div class="label" id="spentLabel">Total spent</div><div class="value" id="spentTotal">₹0</div><small id="spentSub">Cash + UPI + other</small></div>
+    <div class="stat"><div class="label" id="receivedLabel">Total received</div><div class="value" id="receivedTotal">₹0</div><small id="receivedSub">All recorded income</small></div>
+    <div class="stat"><div class="label">Net difference</div><div class="value" id="netTotal">₹0</div><small id="netSub">Received − spent</small></div>
+  </section>
+  <div class="layout">
+    <section class="panel">
+      <h2 id="formTitle">Add transaction</h2>
+      <form id="entryForm">
+        <div class="formgrid">
+          <div class="field full"><label>Entry type</label><div class="kindrow">
+            <button type="button" class="kind active" data-type="expense" id="expenseBtn">− Expense / Kharch</button>
+            <button type="button" class="kind" data-type="income" id="incomeBtn">+ Income / Aaya</button>
+          </div></div>
+          <div class="field full"><label for="amount">Amount (₹) *</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="e.g. 250" required></div>
+          <div class="field"><label for="payment">Payment mode</label><select id="payment"><option value="UPI">UPI</option><option value="Cash">Cash</option><option value="Bank">Bank</option><option value="Card">Card</option><option value="Other">Other</option></select></div>
+          <div class="field"><label for="category">Category</label><select id="category"></select></div>
+          <div class="field full"><label for="description">Description (optional)</label><input id="description" maxlength="100" placeholder="e.g. Grocery / Customer payment"></div>
+          <div class="field full"><label for="date">Date *</label><input id="date" type="date" required></div>
+          <div class="field full"><button class="primary" type="submit">＋ Save entry</button></div>
+        </div>
+      </form>
+      <p class="note">MVP note: UPI entries abhi manually add hoti hain. App total khud calculate karti hai, lekin bank/UPI app se transaction automatically read nahi karti.</p>
+    </section>
+    <section class="panel">
+      <h2 id="listTitle">Transactions</h2>
+      <div class="toolbar">
+        <input id="search" placeholder="Search description…" aria-label="Search">
+        <select id="filterType" aria-label="Filter type"><option value="all">All types</option><option value="expense">Expense</option><option value="income">Income</option></select>
+        <select id="filterPay" aria-label="Filter payment"><option value="all">All modes</option><option>UPI</option><option>Cash</option><option>Bank</option><option>Card</option><option>Other</option></select>
+        <button class="secondary" id="exportBtn" type="button">Export CSV</button>
+      </div>
+      <div id="transactions"></div>
+      <p class="note">Report selected month aur current mode ke records par based hai. Data isi browser/device par save hota hai.</p>
+    </section>
+  </div>
+  <div class="foot">HisabSaathi MVP • Free prototype • Not connected to any bank or UPI provider</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const today=new Date(); const localDate=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+$('date').value=localDate; $('monthPicker').value=localDate.slice(0,7);
+let mode='personal', type='expense';
+let records=[];
+try{records=JSON.parse(localStorage.getItem('hisabsaathi_records_v1')||'[]');if(!Array.isArray(records))records=[]}catch(e){records=[]}
+const cats={
+ personal:{expense:['Food','Shopping','Travel','Bills','Health','Home','Education','Other'],income:['Salary','Business','Refund','Gift','Other']},
+ shop:{expense:['Stock / Maal','Rent','Salary','Electricity','Transport','Food','Other'],income:['Sales','Customer payment','Other income','Refund','Other']}
+};
+function money(n){return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(n||0)}
+function save(){try{localStorage.setItem('hisabsaathi_records_v1',JSON.stringify(records))}catch(e){flash('Storage full ho sakti hai. CSV export karke backup lein.')}}
+function flash(msg){$('flash').textContent=msg;$('flash').style.display='block';setTimeout(()=>{$('flash').style.display='none'},2800)}
+function setMode(next){mode=next;document.querySelectorAll('.mode').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));$('overviewTitle').textContent=mode==='shop'?'Shop Monthly Overview':'Monthly Overview';$('spentLabel').textContent=mode==='shop'?'Business expenses':'Total spent';$('receivedLabel').textContent=mode==='shop'?'Total sales / received':'Total received';$('spentSub').textContent=mode==='shop'?'Recorded shop expenses':'Cash + UPI + other';$('receivedSub').textContent=mode==='shop'?'Recorded receipts, not verified bank total':'All recorded income';$('formTitle').textContent=mode==='shop'?'Add shop entry':'Add transaction';$('listTitle').textContent=mode==='shop'?'Shop transactions':'Transactions';fillCategories();render()}
+function setType(next){type=next;$('expenseBtn').classList.toggle('active',type==='expense');$('incomeBtn').classList.toggle('active',type==='income');fillCategories()}
+function fillCategories(){const opts=cats[mode][type];$('category').innerHTML=opts.map(c=>`<option>${c}</option>`).join('')}
+function selected(){const month=$('monthPicker').value;return records.filter(r=>r.mode===mode&&(!month||r.date.startsWith(month)))}
+function render(){
+ const arr=selected();const spent=arr.filter(r=>r.type==='expense').reduce((s,r)=>s+r.amount,0);const received=arr.filter(r=>r.type==='income').reduce((s,r)=>s+r.amount,0);
+ $('spentTotal').textContent=money(spent);$('receivedTotal').textContent=money(received);$('netTotal').textContent=money(received-spent);$('netTotal').style.color=received-spent<0?'var(--red)':'var(--green2)';
+ const q=$('search').value.trim().toLowerCase(), ft=$('filterType').value, fp=$('filterPay').value;
+ const list=arr.filter(r=>(!q||(`${r.description} ${r.category} ${r.payment}`).toLowerCase().includes(q))&&(ft==='all'||r.type===ft)&&(fp==='all'||r.payment===fp)).sort((a,b)=>(b.date+b.createdAt).localeCompare(a.date+a.createdAt));
+ if(!list.length){$('transactions').innerHTML='<div class="empty">Abhi koi entry nahi hai.<br>Apni pehli entry add karein.</div>';return}
+ $('transactions').innerHTML=list.map(r=>`<div class="tx"><div class="txicon">${r.type==='income'?'↙':'↗'}</div><div class="txbody"><div class="txname">${esc(r.description||r.category)}</div><div class="txmeta">${esc(r.date)} · ${esc(r.payment)} · ${esc(r.category)}</div></div><div class="amount ${r.type==='income'?'in':'out'}">${r.type==='income'?'+':'−'}${money(r.amount)}</div><button class="del" type="button" title="Delete entry" aria-label="Delete entry" data-delete="${r.id}">×</button></div>`).join('');
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('.mode').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+$('expenseBtn').addEventListener('click',()=>setType('expense'));$('incomeBtn').addEventListener('click',()=>setType('income'));
+$('entryForm').addEventListener('submit',e=>{e.preventDefault();const amount=Number($('amount').value);if(!Number.isFinite(amount)||amount<=0){flash('Amount 0 se zyada enter karein.');return}
+records.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random(),mode,type,amount,payment:$('payment').value,category:$('category').value,description:$('description').value.trim(),date:$('date').value,createdAt:String(Date.now())});save();$('amount').value='';$('description').value='';$('monthPicker').value=$('date').value.slice(0,7);render();flash('Entry save ho gayi.')});
+$('transactions').addEventListener('click',e=>{const b=e.target.closest('[data-delete]');if(!b)return;if(confirm('Kya aap ye entry delete karna chahte hain?')){records=records.filter(r=>r.id!==b.dataset.delete);save();render();flash('Entry delete ho gayi.')}});
+['monthPicker','search','filterType','filterPay'].forEach(id=>$(id).addEventListener(id==='monthPicker'?'change':'input',render));
+$('exportBtn').addEventListener('click',()=>{const arr=selected();if(!arr.length){flash('Export karne ke liye entries nahi hain.');return}const rows=[['Date','Mode','Type','Amount INR','Payment','Category','Description'],...arr.map(r=>[r.date,r.mode,r.type,r.amount,r.payment,r.category,r.description])];const csv=rows.map(row=>row.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\r\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`hisabsaathi-${mode}-${$('monthPicker').value||'all'}.csv`;a.click();URL.revokeObjectURL(url)});
+setMode('personal');
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
